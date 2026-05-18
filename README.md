@@ -5,17 +5,6 @@
 > Convert images to PDF, Word (.docx), and PowerPoint (.pptx) instantly — layout preserved, 100% free, no upload needed.
 
 
-
-!\[MimicDocs Banner](https://img.shields.io/badge/MimicDocs-v1.0-c8f04a?style=for-the-badge)
-
-!\[License](https://img.shields.io/badge/License-MIT-blue?style=for-the-badge)
-
-!\[Free](https://img.shields.io/badge/Price-Free-green?style=for-the-badge)
-
-!\[No Signup](https://img.shields.io/badge/Signup-Not%20Required-orange?style=for-the-badge)
-
-
-
 \---
 
 
@@ -327,30 +316,6 @@ git push origin feature/your-feature-name
 \# Open a Pull Request on GitHub
 
 ```
-
-
-
-\---
-
-
-
-\## 🐛 Found a Bug?
-
-
-
-Open an issue on GitHub:
-
-👉 \[https://github.com/YOURUSERNAME/mimicdocs/issues](https://github.com/YOURUSERNAME/mimicdocs/issues)
-
-
-
-!\[Website Status](https://img.shields.io/website?url=https%3A%2F%2Friya-aggarwal31072003.github.io%2Fmimicdocs\&style=for-the-badge\&label=Live%20Status)
-
-
-
-\---
-
-
 
 \## 📄 License
 
