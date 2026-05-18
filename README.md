@@ -24,7 +24,7 @@
 
 
 
-👉 \[https://YOURUSERNAME.github.io/mimicdocs](https://YOURUSERNAME.github.io/mimicdocs)
+👉 https://riya-aggarwal31072003.github.io/mimicdocs/
 
 
 
