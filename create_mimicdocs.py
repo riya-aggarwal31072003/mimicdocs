@@ -1,0 +1,374 @@
+content = open("index.html", "w", encoding="utf-8")
+content.write("""<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MimicDocs - Convert Images to PDF, Word & PowerPoint</title>
+  <meta name="description" content="MimicDocs converts your images to PDF, Word (.docx), and PowerPoint (.pptx) with exact layout preserved. Free, browser-based, no upload needed." />
+  <meta name="keywords" content="image to pdf, image to word, image to ppt, convert image, jpg to pdf, png to docx, free converter, MimicDocs" />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://mimicdocs.app/" />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="MimicDocs - Image to PDF, Word & PowerPoint Converter" />
+  <meta property="og:description" content="Convert images to documents instantly. No upload. No account. Just results." />
+  <meta property="og:url" content="https://mimicdocs.app/" />
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "MimicDocs",
+    "url": "https://mimicdocs.app",
+    "description": "Convert images to PDF, Word, and PowerPoint instantly in your browser.",
+    "applicationCategory": "UtilityApplication",
+    "operatingSystem": "Any",
+    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
+  }
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Outfit:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg: #0e0f0c; --bg2: #161713; --bg3: #1e1f1b; --card: #1a1b17;
+      --border: rgba(255,255,255,0.08); --border2: rgba(255,255,255,0.14);
+      --ink: #f0ede6; --ink2: #9a9890; --ink3: #5a5955;
+      --accent: #c8f04a; --accent2: #a8d630; --red: #f05a4f; --blue: #4f9cf0; --amber: #f0b84f;
+    }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Outfit', sans-serif; background: var(--bg); color: var(--ink); min-height: 100vh; overflow-x: hidden; }
+    nav {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 1.2rem 2.5rem; border-bottom: 1px solid var(--border);
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(14,15,12,0.88); backdrop-filter: blur(12px);
+    }
+    .brand { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+    .brand-mark { width: 36px; height: 36px; background: var(--accent); border-radius: 9px; display: flex; align-items: center; justify-content: center; }
+    .brand-mark svg { width: 20px; height: 20px; }
+    .brand-name { font-family: 'Playfair Display', serif; font-size: 1.25rem; font-weight: 900; color: var(--ink); }
+    .brand-name span { color: var(--accent); }
+    .nav-links { display: flex; gap: 1.5rem; list-style: none; }
+    .nav-links a { text-decoration: none; font-size: 14px; color: var(--ink2); font-weight: 500; transition: color 0.15s; }
+    .nav-links a:hover { color: var(--ink); }
+    .nav-cta { padding: 8px 20px; background: var(--accent); color: #0e0f0c; border-radius: 8px; font-size: 14px; font-weight: 600; text-decoration: none; }
+    .hero { text-align: center; padding: 5rem 2rem 4rem; max-width: 820px; margin: 0 auto; }
+    .hero-badge { display: inline-flex; align-items: center; gap: 6px; padding: 5px 14px; border: 1px solid var(--border2); border-radius: 20px; font-size: 12px; color: var(--ink2); margin-bottom: 1.5rem; font-family: 'JetBrains Mono', monospace; }
+    .hero-badge span { color: var(--accent); }
+    .hero h1 { font-family: 'Playfair Display', serif; font-size: clamp(2.5rem, 6vw, 4.2rem); font-weight: 900; line-height: 1.08; letter-spacing: -0.02em; margin-bottom: 1.25rem; }
+    .hero h1 em { font-style: italic; color: var(--accent); }
+    .hero p { font-size: 1.1rem; color: var(--ink2); max-width: 520px; margin: 0 auto 2rem; line-height: 1.7; font-weight: 300; }
+    .hero-pills { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; margin-bottom: 3rem; }
+    .hero-pill { padding: 5px 14px; border: 1px solid var(--border); border-radius: 20px; font-size: 12px; color: var(--ink3); display: flex; align-items: center; gap: 5px; }
+    .hero-pill i { font-size: 13px; color: var(--accent); }
+    .tool-wrap { max-width: 860px; margin: 0 auto; padding: 0 1.5rem 5rem; }
+    .drop-zone { border: 2px dashed var(--border2); border-radius: 18px; background: var(--card); padding: 3.5rem 2rem; text-align: center; cursor: pointer; transition: border-color 0.2s, background 0.2s; position: relative; margin-bottom: 1.5rem; }
+    .drop-zone.drag-over { border-color: var(--accent); background: rgba(200,240,74,0.05); }
+    .drop-zone input[type=file] { position: absolute; inset: 0; opacity: 0; cursor: pointer; width: 100%; height: 100%; }
+    .drop-icon { width: 60px; height: 60px; background: var(--bg3); border-radius: 14px; border: 1px solid var(--border); display: flex; align-items: center; justify-content: center; margin: 0 auto 1.25rem; }
+    .drop-icon i { font-size: 28px; color: var(--accent); }
+    .drop-zone h2 { font-size: 1.1rem; font-weight: 600; margin-bottom: 5px; }
+    .drop-zone p { font-size: 13px; color: var(--ink2); }
+    .browse-tag { display: inline-block; margin-top: 1.25rem; padding: 8px 22px; border-radius: 8px; border: 1px solid var(--border2); font-size: 13px; font-weight: 500; color: var(--ink2); background: var(--bg3); pointer-events: none; }
+    .preview-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); gap: 10px; margin-bottom: 1.5rem; }
+    .pcard { background: var(--card); border: 1px solid var(--border); border-radius: 12px; overflow: hidden; position: relative; }
+    .pcard img { width: 100%; aspect-ratio: 4/3; object-fit: cover; display: block; }
+    .pcard .pname { padding: 6px 8px; font-size: 10px; color: var(--ink3); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; font-family: 'JetBrains Mono', monospace; }
+    .pcard .rm { position: absolute; top: 5px; right: 5px; width: 22px; height: 22px; background: rgba(0,0,0,0.65); border: none; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; color: white; font-size: 11px; }
+    .pcard .order-badge { position: absolute; top: 5px; left: 5px; background: var(--accent); color: #0e0f0c; font-size: 10px; font-weight: 700; border-radius: 4px; padding: 1px 5px; font-family: 'JetBrains Mono', monospace; }
+    .slabel { font-size: 10px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink3); margin-bottom: 10px; margin-top: 2rem; font-family: 'JetBrains Mono', monospace; }
+    .fmt-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 10px; }
+    .fmt-btn { background: var(--card); border: 1.5px solid var(--border); border-radius: 14px; padding: 1.1rem; cursor: pointer; text-align: left; transition: border-color 0.15s; color: var(--ink); }
+    .fmt-btn.sel { border-color: var(--accent); background: rgba(200,240,74,0.06); }
+    .fmt-icon { width: 38px; height: 38px; border-radius: 9px; display: flex; align-items: center; justify-content: center; font-size: 20px; margin-bottom: 8px; }
+    .fmt-btn .fn { font-weight: 600; font-size: 14px; }
+    .fmt-btn .fd { font-size: 11px; color: var(--ink3); line-height: 1.4; margin-top: 2px; }
+    .opts-row { display: flex; gap: 8px; flex-wrap: wrap; }
+    .opt { padding: 6px 14px; border-radius: 20px; border: 1px solid var(--border); background: var(--card); font-size: 12px; font-weight: 500; cursor: pointer; color: var(--ink2); transition: all 0.15s; }
+    .opt.on { background: var(--accent); color: #0e0f0c; border-color: var(--accent); }
+    .quality-row { display: flex; align-items: center; gap: 12px; margin-top: 1rem; }
+    .quality-row label { font-size: 12px; color: var(--ink3); min-width: 90px; font-family: 'JetBrains Mono', monospace; }
+    .quality-row input[type=range] { flex: 1; accent-color: var(--accent); }
+    .quality-val { font-size: 12px; font-family: 'JetBrains Mono', monospace; color: var(--accent); min-width: 36px; text-align: right; }
+    .cvt-btn { width: 100%; margin-top: 2rem; padding: 15px; border-radius: 12px; background: var(--accent); color: #0e0f0c; font-size: 15px; font-weight: 700; border: none; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px; font-family: 'Outfit', sans-serif; transition: opacity 0.2s, transform 0.1s; }
+    .cvt-btn:not(:disabled):hover { opacity: 0.9; transform: translateY(-1px); }
+    .cvt-btn:disabled { opacity: 0.3; cursor: not-allowed; }
+    .prog-wrap { margin-top: 1.5rem; display: none; }
+    .prog-wrap.show { display: block; }
+    .prog-outer { height: 4px; background: var(--bg3); border-radius: 10px; overflow: hidden; margin-bottom: 8px; }
+    .prog-inner { height: 100%; background: var(--accent); border-radius: 10px; width: 0%; transition: width 0.4s ease; }
+    .prog-txt { font-size: 12px; color: var(--ink3); font-family: 'JetBrains Mono', monospace; }
+    .result { margin-top: 1.5rem; display: none; background: rgba(200,240,74,0.07); border: 1px solid rgba(200,240,74,0.3); border-radius: 14px; padding: 1rem 1.25rem; align-items: center; gap: 1rem; }
+    .result.show { display: flex; }
+    .result i { font-size: 28px; color: var(--accent); }
+    .result-info { flex: 1; }
+    .result-name { font-weight: 600; font-size: 14px; }
+    .result-meta { font-size: 12px; color: var(--ink3); margin-top: 2px; font-family: 'JetBrains Mono', monospace; }
+    .dl-btn { padding: 9px 18px; background: var(--accent); color: #0e0f0c; border: none; border-radius: 9px; font-size: 13px; font-weight: 700; cursor: pointer; font-family: 'Outfit', sans-serif; display: flex; align-items: center; gap: 6px; }
+    .features { padding: 5rem 2rem; max-width: 1000px; margin: 0 auto; }
+    .features-head { text-align: center; margin-bottom: 3rem; }
+    .features-head h2 { font-family: 'Playfair Display', serif; font-size: 2.2rem; font-weight: 900; letter-spacing: -0.02em; margin-bottom: 0.5rem; }
+    .features-head p { font-size: 15px; color: var(--ink2); }
+    .feat-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 16px; }
+    .feat-card { background: var(--card); border: 1px solid var(--border); border-radius: 14px; padding: 1.4rem; }
+    .feat-icon { width: 42px; height: 42px; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 20px; margin-bottom: 14px; }
+    .feat-card h3 { font-size: 15px; font-weight: 600; margin-bottom: 6px; }
+    .feat-card p { font-size: 13px; color: var(--ink3); line-height: 1.6; }
+    .how { padding: 4rem 2rem; max-width: 860px; margin: 0 auto; border-top: 1px solid var(--border); }
+    .how h2 { font-family: 'Playfair Display', serif; font-size: 2rem; font-weight: 900; text-align: center; margin-bottom: 2.5rem; }
+    .steps { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 16px; }
+    .step { text-align: center; padding: 1.5rem 1rem; background: var(--card); border: 1px solid var(--border); border-radius: 14px; }
+    .step-num { width: 36px; height: 36px; background: var(--accent); color: #0e0f0c; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 15px; margin: 0 auto 12px; }
+    .step h3 { font-size: 14px; font-weight: 600; margin-bottom: 6px; }
+    .step p { font-size: 12px; color: var(--ink3); line-height: 1.6; }
+    footer { border-top: 1px solid var(--border); padding: 2.5rem; display: flex; flex-direction: column; gap: 1.5rem; }
+    .footer-top { display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 1.5rem; }
+    .footer-brand { display: flex; align-items: center; gap: 10px; }
+    .footer-bm { width: 30px; height: 30px; background: var(--accent); border-radius: 7px; display: flex; align-items: center; justify-content: center; }
+    .footer-bm svg { width: 17px; height: 17px; }
+    .footer-brand-name { font-family: 'Playfair Display', serif; font-size: 1.1rem; font-weight: 900; color: var(--ink); }
+    .footer-brand-name span { color: var(--accent); }
+    .footer-tagline { font-size: 12px; color: var(--ink3); margin-top: 4px; }
+    .footer-links { display: flex; gap: 2rem; flex-wrap: wrap; }
+    .footer-links a { font-size: 13px; color: var(--ink3); text-decoration: none; }
+    .footer-links a:hover { color: var(--ink); }
+    .footer-bottom { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.5rem; padding-top: 1.5rem; border-top: 1px solid var(--border); font-size: 12px; color: var(--ink3); }
+    .made-with { display: flex; align-items: center; gap: 6px; font-family: 'JetBrains Mono', monospace; font-size: 11px; }
+    .star { color: #f0b84f; font-size: 14px; }
+    .ai-badge { padding: 2px 8px; background: rgba(200,240,74,0.1); border: 1px solid rgba(200,240,74,0.25); border-radius: 4px; color: var(--accent); font-size: 10px; font-weight: 600; }
+    .toast { position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%) translateY(80px); background: var(--bg3); border: 1px solid var(--border2); padding: 10px 20px; border-radius: 10px; font-size: 13px; color: var(--ink); transition: transform 0.3s; z-index: 999; white-space: nowrap; }
+    .toast.show { transform: translateX(-50%) translateY(0); }
+    .reorder-hint { font-size: 11px; color: var(--ink3); text-align: center; margin-top: 6px; font-family: 'JetBrains Mono', monospace; display: none; }
+    .reorder-hint.show { display: block; }
+    @media (max-width: 600px) { nav { padding: 1rem 1.2rem; } .nav-links { display: none; } .fmt-grid { grid-template-columns: 1fr; } .hero { padding: 3rem 1.2rem 2.5rem; } }
+  </style>
+</head>
+<body>
+<nav>
+  <a class="brand" href="#">
+    <div class="brand-mark">
+      <svg viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <rect x="2" y="4" width="11" height="14" rx="2" fill="#0e0f0c" opacity="0.3"/>
+        <rect x="5" y="2" width="11" height="14" rx="2" fill="#0e0f0c" opacity="0.5"/>
+        <rect x="7" y="4" width="9" height="12" rx="1.5" fill="#0e0f0c"/>
+        <line x1="9.5" y1="7" x2="14" y2="7" stroke="#c8f04a" stroke-width="1.2" stroke-linecap="round"/>
+        <line x1="9.5" y1="9.5" x2="14" y2="9.5" stroke="#c8f04a" stroke-width="1.2" stroke-linecap="round"/>
+        <line x1="9.5" y1="12" x2="12" y2="12" stroke="#c8f04a" stroke-width="1.2" stroke-linecap="round"/>
+      </svg>
+    </div>
+    <span class="brand-name">Mimic<span>Docs</span></span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="#converter">Converter</a></li>
+    <li><a href="#features">Features</a></li>
+    <li><a href="#how">How it works</a></li>
+  </ul>
+  <a class="nav-cta" href="#converter">Start Converting</a>
+</nav>
+
+<section class="hero">
+  <div class="hero-badge">v1.0 &nbsp;&middot;&nbsp; <span>Free Forever</span> &nbsp;&middot;&nbsp; No Signup</div>
+  <h1>Turn any image into<br/><em>a perfect document.</em></h1>
+  <p>MimicDocs converts your JPGs, PNGs, and photos into PDF, Word, or PowerPoint files &mdash; layout and quality preserved, entirely in your browser.</p>
+  <div class="hero-pills">
+    <span class="hero-pill"><i class="ti ti-lock"></i> 100% Private</span>
+    <span class="hero-pill"><i class="ti ti-bolt"></i> Instant conversion</span>
+    <span class="hero-pill"><i class="ti ti-device-laptop"></i> Works offline</span>
+    <span class="hero-pill"><i class="ti ti-stack"></i> Batch support</span>
+    <span class="hero-pill"><i class="ti ti-file-type-pdf"></i> PDF</span>
+    <span class="hero-pill"><i class="ti ti-file-type-doc"></i> Word</span>
+    <span class="hero-pill"><i class="ti ti-file-type-ppt"></i> PowerPoint</span>
+  </div>
+</section>
+
+<section class="tool-wrap" id="converter">
+  <div class="drop-zone" id="dropZone">
+    <input type="file" id="fileInput" accept="image/*" multiple />
+    <div class="drop-icon"><i class="ti ti-photo-up"></i></div>
+    <h2>Drop your images here</h2>
+    <p>PNG &middot; JPG &middot; WEBP &middot; BMP &mdash; up to 20 images at once</p>
+    <span class="browse-tag"><i class="ti ti-folder-open" style="font-size:13px;vertical-align:-1px;margin-right:4px"></i>Browse files</span>
+  </div>
+  <div class="preview-grid" id="previewGrid"></div>
+  <div class="reorder-hint" id="reorderHint">Images convert in the order shown above</div>
+  <div id="convertSection" style="display:none">
+    <p class="slabel">Output format</p>
+    <div class="fmt-grid">
+      <button class="fmt-btn sel" data-fmt="pdf" onclick="selFmt(this,'pdf')">
+        <div class="fmt-icon" style="background:rgba(240,90,79,0.15);color:#f05a4f"><i class="ti ti-file-type-pdf"></i></div>
+        <div class="fn">PDF</div>
+        <div class="fd">Universal &middot; print-ready &middot; exact layout</div>
+      </button>
+      <button class="fmt-btn" data-fmt="docx" onclick="selFmt(this,'docx')">
+        <div class="fmt-icon" style="background:rgba(79,156,240,0.15);color:#4f9cf0"><i class="ti ti-file-type-doc"></i></div>
+        <div class="fn">Word (.docx)</div>
+        <div class="fd">Editable in Word or Google Docs</div>
+      </button>
+      <button class="fmt-btn" data-fmt="pptx" onclick="selFmt(this,'pptx')">
+        <div class="fmt-icon" style="background:rgba(240,184,79,0.15);color:#f0b84f"><i class="ti ti-file-type-ppt"></i></div>
+        <div class="fn">PowerPoint</div>
+        <div class="fd">One image per slide &middot; editable</div>
+      </button>
+    </div>
+    <p class="slabel" style="margin-top:1.6rem">Options</p>
+    <div class="opts-row" id="optsRow"></div>
+    <div class="quality-row">
+      <label>Image quality</label>
+      <input type="range" min="50" max="100" value="92" id="qualitySlider" oninput="document.getElementById('qval').textContent=this.value+'%'" />
+      <span class="quality-val" id="qval">92%</span>
+    </div>
+    <button class="cvt-btn" id="cvtBtn" onclick="startConvert()">
+      <i class="ti ti-transform"></i> Convert with MimicDocs
+    </button>
+    <div class="prog-wrap" id="progWrap">
+      <div class="prog-outer"><div class="prog-inner" id="progBar"></div></div>
+      <div class="prog-txt" id="progTxt">Preparing...</div>
+    </div>
+    <div class="result" id="resultCard">
+      <i class="ti ti-circle-check"></i>
+      <div class="result-info">
+        <div class="result-name" id="resName">output.pdf</div>
+        <div class="result-meta" id="resMeta">Ready</div>
+      </div>
+      <button class="dl-btn" id="dlBtn"><i class="ti ti-download" style="font-size:14px"></i> Download</button>
+    </div>
+  </div>
+</section>
+
+<section class="features" id="features">
+  <div class="features-head">
+    <h2>Everything you need.</h2>
+    <p>Purpose-built for real-world document workflows.</p>
+  </div>
+  <div class="feat-grid">
+    <div class="feat-card">
+      <div class="feat-icon" style="background:rgba(200,240,74,0.1);color:var(--accent)"><i class="ti ti-lock"></i></div>
+      <h3>100% Private</h3>
+      <p>All processing happens in your browser. Your images never leave your device.</p>
+    </div>
+    <div class="feat-card">
+      <div class="feat-icon" style="background:rgba(79,156,240,0.1);color:#4f9cf0"><i class="ti ti-stack-2"></i></div>
+      <h3>Batch Convert</h3>
+      <p>Upload up to 20 images at once. Each gets its own page or slide in the output.</p>
+    </div>
+    <div class="feat-card">
+      <div class="feat-icon" style="background:rgba(240,90,79,0.1);color:#f05a4f"><i class="ti ti-file-type-pdf"></i></div>
+      <h3>PDF Precision</h3>
+      <p>A4, fit-to-page, compression &mdash; get exactly the PDF you need.</p>
+    </div>
+    <div class="feat-card">
+      <div class="feat-icon" style="background:rgba(240,184,79,0.1);color:#f0b84f"><i class="ti ti-presentation"></i></div>
+      <h3>PowerPoint Ready</h3>
+      <p>Widescreen 16:9 or standard 4:3. Each image perfectly centered on its own slide.</p>
+    </div>
+    <div class="feat-card">
+      <div class="feat-icon" style="background:rgba(200,240,74,0.1);color:var(--accent)"><i class="ti ti-adjustments-horizontal"></i></div>
+      <h3>Quality Control</h3>
+      <p>Adjust image quality from 50-100% to balance file size and sharpness.</p>
+    </div>
+    <div class="feat-card">
+      <div class="feat-icon" style="background:rgba(79,156,240,0.1);color:#4f9cf0"><i class="ti ti-bolt"></i></div>
+      <h3>Instant and Free</h3>
+      <p>No account, no watermarks, no limits. MimicDocs is free to use, forever.</p>
+    </div>
+  </div>
+</section>
+
+<section class="how" id="how">
+  <h2>How it works</h2>
+  <div class="steps">
+    <div class="step">
+      <div class="step-num">1</div>
+      <h3>Upload Images</h3>
+      <p>Drag and drop or browse to select PNG, JPG, WEBP, or BMP files.</p>
+    </div>
+    <div class="step">
+      <div class="step-num">2</div>
+      <h3>Pick Format</h3>
+      <p>Choose PDF, Word, or PowerPoint. Set your options and quality.</p>
+    </div>
+    <div class="step">
+      <div class="step-num">3</div>
+      <h3>Convert</h3>
+      <p>Hit Convert. Everything processes locally in your browser instantly.</p>
+    </div>
+    <div class="step">
+      <div class="step-num">4</div>
+      <h3>Download</h3>
+      <p>Your file is ready instantly. Use it in Word, Adobe, or PowerPoint.</p>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-top">
+    <div>
+      <div class="footer-brand">
+        <div class="footer-bm">
+          <svg viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect x="2" y="4" width="11" height="14" rx="2" fill="#0e0f0c" opacity="0.3"/>
+            <rect x="5" y="2" width="11" height="14" rx="2" fill="#0e0f0c" opacity="0.5"/>
+            <rect x="7" y="4" width="9" height="12" rx="1.5" fill="#0e0f0c"/>
+            <line x1="9.5" y1="7" x2="14" y2="7" stroke="#0e0f0c" stroke-width="1.2" stroke-linecap="round"/>
+            <line x1="9.5" y1="9.5" x2="14" y2="9.5" stroke="#0e0f0c" stroke-width="1.2" stroke-linecap="round"/>
+            <line x1="9.5" y1="12" x2="12" y2="12" stroke="#0e0f0c" stroke-width="1.2" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <span class="footer-brand-name">Mimic<span>Docs</span></span>
+      </div>
+      <p class="footer-tagline">Convert images to documents. Instantly. Privately.</p>
+    </div>
+    <div class="footer-links">
+      <a href="#converter">Converter</a>
+      <a href="#features">Features</a>
+      <a href="#how">How it works</a>
+      <a href="mailto:hello@mimicdocs.app">Contact</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>&copy; 2025 MimicDocs &middot; All rights reserved</span>
+    <div class="made-with">
+      Made with <span class="star">&#9733;</span> &amp; <span class="ai-badge">AI</span> &middot; Powered by Claude
+    </div>
+  </div>
+</footer>
+
+<div class="toast" id="toast"></div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+<script>
+let files=[],selFormat='pdf',outputUrl=null;
+const fmtOpts={
+  pdf:[{id:'fit',label:'Fit to page'},{id:'a4',label:'A4 size'},{id:'compress',label:'Compress'}],
+  docx:[{id:'center',label:'Center images'},{id:'caption',label:'Add filenames'},{id:'fullwidth',label:'Full width'}],
+  pptx:[{id:'wide',label:'Widescreen 16:9'},{id:'std',label:'Standard 4:3'},{id:'title',label:'Slide titles'}]
+};
+let activeOpts={fit:true,wide:true};
+function renderOpts(){const row=document.getElementById('optsRow');row.innerHTML='';fmtOpts[selFormat].forEach(o=>{row.innerHTML+=`<button class="opt${activeOpts[o.id]?' on':''}" onclick="toggleOpt('${o.id}',this)">${o.label}</button>`;});}
+function toggleOpt(id,el){activeOpts[id]=!activeOpts[id];el.classList.toggle('on');}
+function selFmt(btn,fmt){document.querySelectorAll('.fmt-btn').forEach(b=>b.classList.remove('sel'));btn.classList.add('sel');selFormat=fmt;document.getElementById('resultCard').classList.remove('show');renderOpts();}
+const dropZone=document.getElementById('dropZone');
+const fileInput=document.getElementById('fileInput');
+const previewGrid=document.getElementById('previewGrid');
+dropZone.addEventListener('dragover',e=>{e.preventDefault();dropZone.classList.add('drag-over');});
+dropZone.addEventListener('dragleave',()=>dropZone.classList.remove('drag-over'));
+dropZone.addEventListener('drop',e=>{e.preventDefault();dropZone.classList.remove('drag-over');handleFiles([...e.dataTransfer.files].filter(f=>f.type.startsWith('image/')));});
+fileInput.addEventListener('change',()=>handleFiles([...fileInput.files]));
+function handleFiles(nf){nf.forEach(f=>{if(files.length<20&&!files.find(x=>x.name===f.name&&x.size===f.size))files.push(f);});if(nf.length>0)showToast(nf.length+' image'+(nf.length>1?'s':'')+' added');renderPreviews();document.getElementById('convertSection').style.display=files.length?'block':'none';document.getElementById('reorderHint').classList.toggle('show',files.length>1);renderOpts();}
+function renderPreviews(){previewGrid.innerHTML='';files.forEach((f,i)=>{const url=URL.createObjectURL(f);const d=document.createElement('div');d.className='pcard';d.innerHTML=`<span class="order-badge">${i+1}</span><img src="${url}" alt="${f.name}"><div class="pname">${f.name}</div><button class="rm" onclick="removeFile(${i})">x</button>`;previewGrid.appendChild(d);});}
+function removeFile(i){files.splice(i,1);renderPreviews();if(!files.length){document.getElementById('convertSection').style.display='none';document.getElementById('reorderHint').classList.remove('show');}}
+function setP(pct,msg){document.getElementById('progBar').style.width=pct+'%';document.getElementById('progTxt').textContent=msg;}
+function readURL(f){return new Promise((r,j)=>{const rd=new FileReader();rd.onload=e=>r(e.target.result);rd.onerror=j;rd.readAsDataURL(f);});}
+function loadImg(src){return new Promise((r,j)=>{const i=new Image();i.onload=()=>r(i);i.onerror=j;i.src=src;});}
+function showToast(msg){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2200);}
+async function startConvert(){if(!files.length)return;const btn=document.getElementById('cvtBtn');btn.disabled=true;document.getElementById('resultCard').classList.remove('show');document.getElementById('progWrap').classList.add('show');setP(0,'Starting...');try{if(selFormat==='pdf')await makePDF();else if(selFormat==='docx')await makeDOCX();else await makePPTX();}catch(e){setP(100,'Error: '+e.message);}btn.disabled=false;}
+async function makePDF(){const{jsPDF}=window.jspdf;const isA4=activeOpts['a4'],fit=activeOpts['fit']!==false,comp=activeOpts['compress'];let doc=null;for(let i=0;i<files.length;i++){setP(Math.round((i/files.length)*85),'Processing '+(i+1)+'/'+files.length+'...');const dataUrl=await readURL(files[i]);const img=await loadImg(dataUrl);const iw=img.naturalWidth,ih=img.naturalHeight;const land=iw>ih&&!isA4;const or=land?'l':'p';const pw=isA4?(or==='l'?297:210):Math.min(iw*0.264583,310);const ph=isA4?(or==='l'?210:297):Math.min(ih*0.264583,420);if(i===0)doc=new jsPDF({orientation:or,unit:'mm',format:isA4?'a4':[pw,ph]});else doc.addPage(isA4?'a4':[pw,ph],or);const mg=8,avW=pw-mg*2,avH=ph-mg*2;let dw,dh;if(fit){const s=Math.min(avW/(iw*0.264583),avH/(ih*0.264583));dw=iw*0.264583*s;dh=ih*0.264583*s;}else{dw=iw*0.264583;dh=ih*0.264583;}const x=mg+(avW-dw)/2,y=mg+(avH-dh)/2;const fmt=files[i].type==='image/png'?'PNG':'JPEG';doc.addImage(dataUrl,fmt,x,y,dw,dh,undefined,comp?'FAST':'NONE');}setP(95,'Generating PDF...');const blob=doc.output('blob');finalize(blob,'MimicDocs-output.pdf','application/pdf',files.length+' image'+(files.length>1?'s':'')+' to PDF');}
+async function makeDOCX(){setP(10,'Building Word document...');const items=[];for(let i=0;i<files.length;i++){setP(10+Math.round((i/files.length)*60),'Loading image '+(i+1)+'...');const dataUrl=await readURL(files[i]);const img=await loadImg(dataUrl);items.push({dataUrl,name:files[i].name,w:img.naturalWidth,h:img.naturalHeight,type:files[i].type});}setP(75,'Assembling .docx...');const zip=new JSZip();const maxW=5940720,maxH=8391600,pxE=9525;let bodyXml='';const rels={},imgs={};for(let i=0;i<items.length;i++){const d=items[i];const rid='rImg'+(i+1);const ext=d.type==='image/png'?'png':'jpeg';const fname='media/img'+(i+1)+'.'+ext;let eW=d.w*pxE,eH=d.h*pxE;if(eW>maxW){const r=maxW/eW;eW=maxW;eH=Math.round(eH*r);}if(eH>maxH){const r=maxH/eH;eH=maxH;eW=Math.round(eW*r);}rels[rid]={target:fname,type:'http://schemas.openxmlformats.org/officeDocument/2006/relationships/image'};imgs[fname]=d.dataUrl.split(',')[1];const jc=activeOpts['center']?'center':'left';const cap=activeOpts['caption']?'<w:p><w:pPr><w:jc w:val="center"/></w:pPr><w:r><w:rPr><w:sz w:val="16"/><w:color w:val="888888"/></w:rPr><w:t>'+d.name+'</w:t></w:r></w:p>':'';bodyXml+='<w:p><w:pPr><w:jc w:val="'+jc+'"/></w:pPr><w:r><w:rPr/><w:drawing><wp:inline distT="0" distB="0" distL="0" distR="0" xmlns:wp="http://schemas.openxmlformats.org/drawingml/2006/wordprocessingDrawing"><wp:extent cx="'+eW+'" cy="'+eH+'"/><wp:docPr id="'+(i+1)+'" name="Img'+(i+1)+'"/><a:graphic xmlns:a="http://schemas.openxmlformats.org/drawingml/2006/main"><a:graphicData uri="http://schemas.openxmlformats.org/drawingml/2006/picture"><pic:pic xmlns:pic="http://schemas.openxmlformats.org/drawingml/2006/picture"><pic:nvPicPr><pic:cNvPr id="'+(i+1)+'" name="Img'+(i+1)+'"/><pic:cNvPicPr/></pic:nvPicPr><pic:blipFill><a:blip r:embed="'+rid+'" xmlns:r="http://schemas.openxmlformats.org/officeDocument/2006/relationships"/><a:stretch><a:fillRect/></a:stretch></pic:blipFill><pic:spPr><a:xfrm><a:off x="0" y="0"/><a:ext cx="'+eW+'" cy="'+eH+'"/></a:xfrm><a:prstGeom prst="rect"><a:avLst/></a:prstGeom></pic:spPr></pic:pic></a:graphicData></a:graphic></wp:inline></w:drawing></w:r></w:p>'+cap;if(i<items.length-1)bodyXml+='<w:p><w:r><w:br w:type="page"/></w:r></w:p>';}const docXml='<?xml version="1.0" encoding="UTF-8" standalone="yes"?><w:document xmlns:r="http://schemas.openxmlformats.org/officeDocument/2006/relationships" xmlns:m="http://schemas.openxmlformats.org/officeDocument/2006/math" xmlns:w="http://schemas.openxmlformats.org/wordprocessingml/2006/main" xmlns:wp="http://schemas.openxmlformats.org/drawingml/2006/wordprocessingDrawing"><w:body>'+bodyXml+'<w:sectPr/></w:body></w:document>';let rXml='<?xml version="1.0" encoding="UTF-8" standalone="yes"?><Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships"><Relationship Id="rStyles" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/styles" Target="styles.xml"/>';Object.entries(rels).forEach(([id,r])=>rXml+='<Relationship Id="'+id+'" Type="'+r.type+'" Target="'+r.target+'"/>');rXml+='</Relationships>';zip.file('[Content_Types].xml','<?xml version="1.0" encoding="UTF-8" standalone="yes"?><Types xmlns="http://schemas.openxmlformats.org/package/2006/content-types"><Default Extension="rels" ContentType="application/vnd.openxmlformats-package.relationships+xml"/><Default Extension="xml" ContentType="application/xml"/><Default Extension="jpeg" ContentType="image/jpeg"/><Default Extension="png" ContentType="image/png"/><Override PartName="/word/document.xml" ContentType="application/vnd.openxmlformats-officedocument.wordprocessingml.document.main+xml"/><Override PartName="/word/styles.xml" ContentType="application/vnd.openxmlformats-officedocument.wordprocessingml.styles+xml"/></Types>');zip.file('_rels/.rels','<?xml version="1.0" encoding="UTF-8" standalone="yes"?><Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships"><Relationship Id="rId1" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/officeDocument" Target="word/document.xml"/></Relationships>');zip.folder('word');zip.file('word/document.xml',docXml);zip.file('word/_rels/document.xml.rels',rXml);zip.file('word/styles.xml','<?xml version="1.0" encoding="UTF-8" standalone="yes"?><w:styles xmlns:w="http://schemas.openxmlformats.org/wordprocessingml/2006/main"><w:docDefaults><w:rPrDefault><w:rPr><w:sz w:val="24"/></w:rPr></w:rPrDefault></w:docDefaults></w:styles>');Object.entries(imgs).forEach(([p,b])=>zip.file('word/'+p,b,{base64:true}));setP(92,'Generating .docx...');const blob=await zip.generateAsync({type:'blob',mimeType:'application/vnd.openxmlformats-officedocument.wordprocessingml.document'});finalize(blob,'MimicDocs-output.docx','application/vnd.openxmlformats-officedocument.wordprocessingml.document',files.length+' image'+(files.length>1?'s':'')+' to Word');}
+async function makePPTX(){setP(10,'Building PowerPoint...');const wide=!activeOpts['std'];const sW=wide?9144000:6858000,sH=5143500;const zip=new JSZip();const slides=[];for(let i=0;i<files.length;i++){setP(10+Math.round((i/files.length)*75),'Building slide '+(i+1)+'...');const dataUrl=await readURL(files[i]);const img=await loadImg(dataUrl);const b64=dataUrl.split(',')[1];const ext=files[i].type==='image/png'?'png':'jpeg';const iw=img.naturalWidth,ih=img.naturalHeight;let fW=iw*9525,fH=ih*9525;const mW=Math.round(sW*0.9),mH=Math.round(sH*0.88);if(fW>mW){const r=mW/fW;fW=mW;fH=Math.round(fH*r);}if(fH>mH){const r=mH/fH;fH=mH;fW=Math.round(fW*r);}const offX=Math.round((sW-fW)/2),offY=Math.round((sH-fH)/2);const rid='rImg1';zip.file('ppt/slides/media/image'+(i+1)+'.'+ext,b64,{base64:true});const titleXml=activeOpts['title']?'<p:sp><p:nvSpPr><p:cNvPr id="2" name="T"/><p:cNvSpPr><a:spLocks noGrp="1"/></p:cNvSpPr><p:nvPr><p:ph type="title"/></p:nvPr></p:nvSpPr><p:spPr/><p:txBody><a:bodyPr/><a:lstStyle/><a:p><a:r><a:t>'+files[i].name+'</a:t></a:r></a:p></p:txBody></p:sp>':'';zip.file('ppt/slides/slide'+(i+1)+'.xml','<?xml version="1.0" encoding="UTF-8" standalone="yes"?><p:sld xmlns:a="http://schemas.openxmlformats.org/drawingml/2006/main" xmlns:r="http://schemas.openxmlformats.org/officeDocument/2006/relationships" xmlns:p="http://schemas.openxmlformats.org/presentationml/2006/main"><p:cSld><p:bg><p:bgRef idx="1001" xmlns:p="http://schemas.openxmlformats.org/presentationml/2006/main"><a:srgbClr val="FFFFFF"/></p:bgRef></p:bg><p:spTree><p:nvGrpSpPr><p:cNvPr id="1" name=""/><p:cNvGrpSpPr/><p:nvPr/></p:nvGrpSpPr><p:grpSpPr><a:xfrm><a:off x="0" y="0"/><a:ext cx="'+sW+'" cy="'+sH+'"/><a:chOff x="0" y="0"/><a:chExt cx="'+sW+'" cy="'+sH+'"/></a:xfrm></p:grpSpPr>'+titleXml+'<p:pic><p:nvPicPr><p:cNvPr id="3" name="Img'+(i+1)+'"/><p:cNvPicPr/><p:nvPr/></p:nvPicPr><p:blipFill><a:blip r:embed="'+rid+'"/><a:stretch><a:fillRect/></a:stretch></p:blipFill><p:spPr><a:xfrm><a:off x="'+offX+'" y="'+offY+'"/><a:ext cx="'+fW+'" cy="'+fH+'"/></a:xfrm><a:prstGeom prst="rect"><a:avLst/></a:prstGeom></p:spPr></p:pic></p:spTree></p:cSld></p:sld>');zip.file('ppt/slides/_rels/slide'+(i+1)+'.xml.rels','<?xml version="1.0" encoding="UTF-8" standalone="yes"?><Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships"><Relationship Id="'+rid+'" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/image" Target="media/image'+(i+1)+'.'+ext+'"/><Relationship Id="rLayout" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/slideLayout" Target="../slideLayouts/slideLayout1.xml"/></Relationships>');slides.push(i);}const sldRefs=slides.map(i=>'<p:sldId id="'+(256+i)+'" r:id="rSld'+(i+1)+'"/>').join('');const presRels=slides.map(i=>'<Relationship Id="rSld'+(i+1)+'" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/slide" Target="slides/slide'+(i+1)+'.xml"/>').join('');zip.file('[Content_Types].xml','<?xml version="1.0" encoding="UTF-8" standalone="yes"?><Types xmlns="http://schemas.openxmlformats.org/package/2006/content-types"><Default Extension="rels" ContentType="application/vnd.openxmlformats-package.relationships+xml"/><Default Extension="xml" ContentType="application/xml"/><Default Extension="jpeg" ContentType="image/jpeg"/><Default Extension="png" ContentType="image/png"/><Override PartName="/ppt/presentation.xml" ContentType="application/vnd.openxmlformats-officedocument.presentationml.presentation.main+xml"/><Override PartName="/ppt/slideMasters/slideMaster1.xml" ContentType="application/vnd.openxmlformats-officedocument.presentationml.slideMaster+xml"/><Override PartName="/ppt/slideLayouts/slideLayout1.xml" ContentType="application/vnd.openxmlformats-officedocument.presentationml.slideLayout+xml"/>'+slides.map(i=>'<Override PartName="/ppt/slides/slide'+(i+1)+'.xml" ContentType="application/vnd.openxmlformats-officedocument.presentationml.slide+xml"/>').join('')+'</Types>');zip.file('_rels/.rels','<?xml version="1.0" encoding="UTF-8" standalone="yes"?><Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships"><Relationship Id="rId1" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/officeDocument" Target="ppt/presentation.xml"/></Relationships>');zip.file('ppt/presentation.xml','<?xml version="1.0" encoding="UTF-8" standalone="yes"?><p:presentation xmlns:a="http://schemas.openxmlformats.org/drawingml/2006/main" xmlns:r="http://schemas.openxmlformats.org/officeDocument/2006/relationships" xmlns:p="http://schemas.openxmlformats.org/presentationml/2006/main"><p:sldMasterIdLst><p:sldMasterId id="2147483648" r:id="rMaster1"/></p:sldMasterIdLst><p:sldSz cx="'+sW+'" cy="'+sH+'" type="'+(wide?'screen16x9':'screen4x3')+'"/><p:notesSz cx="6858000" cy="9144000"/><p:sldIdLst>'+sldRefs+'</p:sldIdLst></p:presentation>');zip.file('ppt/_rels/presentation.xml.rels','<?xml version="1.0" encoding="UTF-8" standalone="yes"?><Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships"><Relationship Id="rMaster1" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/slideMaster" Target="slideMasters/slideMaster1.xml"/>'+presRels+'</Relationships>');zip.file('ppt/slideMasters/slideMaster1.xml','<?xml version="1.0" encoding="UTF-8" standalone="yes"?><p:sldMaster xmlns:a="http://schemas.openxmlformats.org/drawingml/2006/main" xmlns:r="http://schemas.openxmlformats.org/officeDocument/2006/relationships" xmlns:p="http://schemas.openxmlformats.org/presentationml/2006/main"><p:cSld><p:bg><p:bgRef idx="1001"><a:srgbClr val="FFFFFF"/></p:bgRef></p:bg><p:spTree><p:nvGrpSpPr><p:cNvPr id="1" name=""/><p:cNvGrpSpPr/><p:nvPr/></p:nvGrpSpPr><p:grpSpPr><a:xfrm><a:off x="0" y="0"/><a:ext cx="0" cy="0"/><a:chOff x="0" y="0"/><a:chExt cx="0" cy="0"/></a:xfrm></p:grpSpPr></p:spTree></p:cSld><p:txStyles><p:titleStyle><a:lvl1pPr><a:defRPr/></a:lvl1pPr></p:titleStyle><p:bodyStyle/><p:otherStyle/></p:txStyles><p:sldLayoutIdLst><p:sldLayoutId id="2147483649" r:id="rLayout1"/></p:sldLayoutIdLst></p:sldMaster>');zip.file('ppt/slideMasters/_rels/slideMaster1.xml.rels','<?xml version="1.0" encoding="UTF-8" standalone="yes"?><Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships"><Relationship Id="rLayout1" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/slideLayout" Target="../slideLayouts/slideLayout1.xml"/></Relationships>');zip.file('ppt/slideLayouts/slideLayout1.xml','<?xml version="1.0" encoding="UTF-8" standalone="yes"?><p:sldLayout xmlns:a="http://schemas.openxmlformats.org/drawingml/2006/main" xmlns:r="http://schemas.openxmlformats.org/officeDocument/2006/relationships" xmlns:p="http://schemas.openxmlformats.org/presentationml/2006/main" type="blank"><p:cSld name="Blank"><p:spTree><p:nvGrpSpPr><p:cNvPr id="1" name=""/><p:cNvGrpSpPr/><p:nvPr/></p:nvGrpSpPr><p:grpSpPr><a:xfrm><a:off x="0" y="0"/><a:ext cx="0" cy="0"/><a:chOff x="0" y="0"/><a:chExt cx="0" cy="0"/></a:xfrm></p:grpSpPr></p:spTree></p:cSld></p:sldLayout>');zip.file('ppt/slideLayouts/_rels/slideLayout1.xml.rels','<?xml version="1.0" encoding="UTF-8" standalone="yes"?><Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships"><Relationship Id="rMaster" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/slideMaster" Target="../slideMasters/slideMaster1.xml"/></Relationships>');setP(92,'Generating .pptx...');const blob=await zip.generateAsync({type:'blob',mimeType:'application/vnd.openxmlformats-officedocument.presentationml.presentation'});finalize(blob,'MimicDocs-output.pptx','application/vnd.openxmlformats-officedocument.presentationml.presentation',files.length+' slide'+(files.length>1?'s':'')+' to PowerPoint');}
+function finalize(blob,fname,mime,meta){setP(100,'Done!');if(outputUrl)URL.revokeObjectURL(outputUrl);outputUrl=URL.createObjectURL(blob);document.getElementById('resName').textContent=fname;document.getElementById('resMeta').textContent=meta+' - '+(blob.size/1024).toFixed(0)+' KB';const rc=document.getElementById('resultCard');rc.classList.add('show');document.getElementById('dlBtn').onclick=()=>{const a=document.createElement('a');a.href=outputUrl;a.download=fname;a.click();};showToast('File ready - click Download!');}
+</script>
+</body>
+</html>""")
+content.close()
+print("index.html created successfully!")
