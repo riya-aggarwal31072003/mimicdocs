@@ -353,7 +353,7 @@ If MimicDocs helped you, please give it a \*\*star on GitHub\*\* — it helps ot
 
 
 
-👉 \[https://github.com/riya-aggarwal31072003/mimicdocs](https://github.com/riya-aggarwal31072003/mimicdocs)
+👉 https://github.com/riya-aggarwal31072003/mimicdocs
 
 
 
